@@ -1,9 +1,11 @@
 package org.ultima;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.sql.*;
 import java.util.Base64;
 import java.util.Date;
+import java.util.Random;
 
 import org.ultima.Logger.Note;
 
@@ -351,8 +353,236 @@ public class DBExecutor {
         return true;
     }
 
+    public static int[] getIntsByStringParam(String column, String paramName, String paramData, String dbPath, String dbName) {
+        Connection dbConnection = null;
+        PreparedStatement gettingStatement = null;
+        PreparedStatement countingStatement = null;
+        try {
+            dbConnection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
+            countingStatement = dbConnection.prepareStatement("SELECT COUNT(?) FROM ?, WHERE ? = ?");
+            countingStatement.setString(1, column);
+            countingStatement.setString(2, dbName);
+            countingStatement.setString(3, paramName);
+            countingStatement.setString(4, paramData);
+            ResultSet cntRes = countingStatement.executeQuery();
+            int cnt = 0;
+            /**XXX Replace counter with while & List **/
+            if (cntRes.next()) {
+                cnt = cntRes.getInt(1);
+                cntRes.close();
+                countingStatement.close();
+            } else {
+                cntRes.close();
+                throw new Exception();
+            }
+            gettingStatement = dbConnection.prepareStatement("SELECT * FROM ?, WHERE ? = ?");
+            gettingStatement.setString(1, dbName);
+            countingStatement.setString(2, paramName);
+            countingStatement.setString(3, paramData);
+            ResultSet statementResult = gettingStatement.executeQuery();
+            int[] result = null;
+            if (statementResult.next()) {
+                result = new int[cnt];
+                int pos = 0;
+                result[pos] = statementResult.getInt(column);
+                while(statementResult.next()) {
+                    pos++;
+                    result[pos] = statementResult.getInt(column);
+                }
+            } else {
+                statementResult.close();
+                throw new Exception();
+            }
+            statementResult.close();
+            gettingStatement.close();
+            dbConnection.close();
+            return result;
+        } catch (Exception dbException) {
+            try {
+                if (countingStatement != null) countingStatement.close();
+                if (gettingStatement != null) gettingStatement.close();
+                if (dbConnection != null) dbConnection.close();
+            } catch (Exception immediatelyClosingException) {
+                return null;
+            }
+            return null;
+        }
+    }
+
+    public static String[] getStringsByStringParam(String column, String paramName, String paramData, String dbPath, String dbName) {
+        Connection dbConnection = null;
+        PreparedStatement gettingStatement = null;
+        PreparedStatement countingStatement = null;
+        try {
+            dbConnection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
+            countingStatement = dbConnection.prepareStatement("SELECT COUNT(?) FROM ?, WHERE ? = ?");
+            countingStatement.setString(1, column);
+            countingStatement.setString(2, dbName);
+            countingStatement.setString(3, paramName);
+            countingStatement.setString(4, paramData);
+            ResultSet cntRes = countingStatement.executeQuery();
+            int cnt = 0;
+            /**XXX Replace counter with while & List **/
+            if (cntRes.next()) {
+                cnt = cntRes.getInt(1);
+                cntRes.close();
+                countingStatement.close();
+            } else {
+                cntRes.close();
+                throw new Exception();
+            }
+            gettingStatement = dbConnection.prepareStatement("SELECT * FROM ?, WHERE ? = ?");
+            gettingStatement.setString(1, dbName);
+            countingStatement.setString(2, paramName);
+            countingStatement.setString(3, paramData);
+            ResultSet statementResult = gettingStatement.executeQuery();
+            String[] result = null;
+            if (statementResult.next()) {
+                result = new String[cnt];
+                int pos = 0;
+                result[pos] = statementResult.getString(column);
+                while(statementResult.next()) {
+                    pos++;
+                    result[pos] = statementResult.getString(column);
+                }
+            } else {
+                statementResult.close();
+                throw new Exception();
+            }
+            statementResult.close();
+            gettingStatement.close();
+            dbConnection.close();
+            return result;
+        } catch (Exception dbException) {
+            try {
+                if (countingStatement != null) countingStatement.close();
+                if (gettingStatement != null) gettingStatement.close();
+                if (dbConnection != null) dbConnection.close();
+            } catch (Exception immediatelyClosingException) {
+                return null;
+            }
+            return null;
+        }
+    }
+
+    public static int[] getIntsByIntParam(String column, String paramName, int paramData, String dbPath, String dbName) {
+        Connection dbConnection = null;
+        PreparedStatement gettingStatement = null;
+        PreparedStatement countingStatement = null;
+        try {
+            dbConnection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
+            countingStatement = dbConnection.prepareStatement("SELECT COUNT(?) FROM ?, WHERE ? = ?");
+            countingStatement.setString(1, column);
+            countingStatement.setString(2, dbName);
+            countingStatement.setString(3, paramName);
+            countingStatement.setInt(4, paramData);
+            ResultSet cntRes = countingStatement.executeQuery();
+            int cnt = 0;
+            /**XXX Replace counter with while & List **/
+            if (cntRes.next()) {
+                cnt = cntRes.getInt(1);
+                cntRes.close();
+                countingStatement.close();
+            } else {
+                cntRes.close();
+                throw new Exception();
+            }
+            gettingStatement = dbConnection.prepareStatement("SELECT * FROM ?, WHERE ? = ?");
+            gettingStatement.setString(1, dbName);
+            countingStatement.setString(2, paramName);
+            countingStatement.setInt(3, paramData);
+            ResultSet statementResult = gettingStatement.executeQuery();
+            int[] result = null;
+            if (statementResult.next()) {
+                result = new int[cnt];
+                int pos = 0;
+                result[pos] = statementResult.getInt(column);
+                while(statementResult.next()) {
+                    pos++;
+                    result[pos] = statementResult.getInt(column);
+                }
+            } else {
+                statementResult.close();
+                throw new Exception();
+            }
+            statementResult.close();
+            gettingStatement.close();
+            dbConnection.close();
+            return result;
+        } catch (Exception dbException) {
+            try {
+                if (countingStatement != null) countingStatement.close();
+                if (gettingStatement != null) gettingStatement.close();
+                if (dbConnection != null) dbConnection.close();
+            } catch (Exception immediatelyClosingException) {
+                return null;
+            }
+            return null;
+        }
+    }
+
+    public static String[] getStringsByIntParam(String column, String paramName, int paramData, String dbPath, String dbName) {
+        Connection dbConnection = null;
+        PreparedStatement gettingStatement = null;
+        PreparedStatement countingStatement = null;
+        try {
+            dbConnection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
+            countingStatement = dbConnection.prepareStatement("SELECT COUNT(?) FROM ?, WHERE ? = ?");
+            countingStatement.setString(1, column);
+            countingStatement.setString(2, dbName);
+            countingStatement.setString(3, paramName);
+            countingStatement.setInt(4, paramData);
+            ResultSet cntRes = countingStatement.executeQuery();
+            int cnt = 0;
+            /**XXX Replace counter with while & List **/
+            if (cntRes.next()) {
+                cnt = cntRes.getInt(1);
+                cntRes.close();
+                countingStatement.close();
+            } else {
+                cntRes.close();
+                throw new Exception();
+            }
+            gettingStatement = dbConnection.prepareStatement("SELECT * FROM ?, WHERE ? = ?");
+            gettingStatement.setString(1, dbName);
+            countingStatement.setString(2, paramName);
+            countingStatement.setInt(3, paramData);
+            ResultSet statementResult = gettingStatement.executeQuery();
+            String[] result = null;
+            if (statementResult.next()) {
+                result = new String[cnt];
+                int pos = 0;
+                result[pos] = statementResult.getString(column);
+                while(statementResult.next()) {
+                    pos++;
+                    result[pos] = statementResult.getString(column);
+                }
+            } else {
+                statementResult.close();
+                throw new Exception();
+            }
+            statementResult.close();
+            gettingStatement.close();
+            dbConnection.close();
+            return result;
+        } catch (Exception dbException) {
+            try {
+                if (countingStatement != null) countingStatement.close();
+                if (gettingStatement != null) gettingStatement.close();
+                if (dbConnection != null) dbConnection.close();
+            } catch (Exception immediatelyClosingException) {
+                return null;
+            }
+            return null;
+        }
+    }
+
     public static String getCompanyName(int id) {
         return getStringParam(id, "name", cmpsDBPath, "companies");
+    }
+
+    public static int[] getCompanyId(String name) {
+        return getIntsByStringParam("id", "name", name, cmpsDBPath, "companies");
     }
 
     public static String getCompanyPassword(int id) {
@@ -371,30 +601,82 @@ public class DBExecutor {
         return getStringParam(id, "last_date", cmpsDBPath, "companies");
     }
 
-    public static String getCmpNoticeType(int id) {
-        String path = getCompanyPath(id);
+    public static String getCmpNoticeType(int cmpId, int ntcId) {
+        String path = getCompanyPath(cmpId);
         if (path != null) {
             path += "/notices.db";
-            return getStringParam(id, "type", path, "notices");
+            return getStringParam(ntcId, "type", path, "notices");
         }
         return null;
     }
 
-    public static String getCmpNoticeDataPath(int id) {
-        String path = getCompanyPath(id);
+    public static String getCmpNoticeDataPath(int cmpId, int ntcId) {
+        String path = getCompanyPath(cmpId);
         if (path != null) {
             path += "/notices.db";
-            return getStringParam(id, "path", path, "notices");
+            return getStringParam(ntcId, "path", path, "notices");
         }
         return null;
     }
 
-    public static int[] getCmpNoticeIds(int id) {
-        String path = getCompanyPath(id);
+    public static int[] getCmpNoticeIds(int cmpId) {
+        String path = getCompanyPath(cmpId);
         if (path != null) {
             path += "/notices.db";
             return getAllIntParam("id", path, "notices");
         }
         return null;
+    }
+
+    public static byte[] getCmpNoticeData(int cmpId, int ntcId) {
+        String dataPath = getCmpNoticeDataPath(cmpId, ntcId);
+        if (dataPath != null) {
+            try (FileInputStream fis = new FileInputStream(dataPath)) {
+                return fis.readAllBytes();
+            } catch (Exception unExc) {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public static boolean createCmpNotice(int cmpId, String type, byte[] data) {
+        String path = getCompanyPath(cmpId);
+        if (path != null) {
+            Connection companyDB = null;
+            PreparedStatement creatingStatement = null;
+            try {
+                String filePath = Base64.getEncoder().encodeToString(ByteOperations.getStringBytes(path + "/file_" + Server.getDateform().format(new Date()))) + "_" + Base64.getEncoder().encodeToString(ByteOperations.getLongBytes(new Random().nextLong())) + ".data";
+                if (!new File(filePath).exists()) {
+                    if (!new File(filePath).createNewFile()) {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+                companyDB = DriverManager.getConnection("jdbc:sqlite:" + path + "/notices.db");
+                creatingStatement = companyDB.prepareStatement("INSERT INTO notices (" +
+                        "type, " +
+                        "path, " +
+                        "VALUES (?, ?)");
+                creatingStatement.setString(1, type);
+                creatingStatement.setString(2, filePath);
+                int updated = creatingStatement.executeUpdate();
+                if (updated == 0) throw new Exception();
+                creatingStatement.close();
+                companyDB.close();
+            } catch (Exception unExc) {
+                try {
+                    if (creatingStatement != null) creatingStatement.close();
+                    if (companyDB != null) companyDB.close();
+                } catch (Exception immediatelyClosingException) {
+                    return false;
+                }
+                return false;
+            }
+            return true;
+        }
+        return false;
     }
 }
