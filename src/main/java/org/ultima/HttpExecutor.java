@@ -312,10 +312,15 @@ public class HttpExecutor {
                                 int cid = Integer.parseInt(headers.getFirst("cid"));
                                 int nid = Integer.parseInt(headers.getFirst("nid"));
                                 String type = headers.getFirst("type");
-                                if (DBExecutor.setCmpNoticeType(cid, nid, type)) {
-                                    rsp.setRspCode(Codes.Http.OK);
+                                if (type.equals("accepted_company_doc")) {
+                                    //TODO UPD LASTDATE
+                                    if (DBExecutor.setCmpNoticeType(cid, nid, type)) {
+                                        rsp.setRspCode(Codes.Http.OK);
+                                    } else {
+                                        rsp.setRspCode(Codes.Http.ERR_SERVER);
+                                    }
                                 } else {
-                                    rsp.setRspCode(Codes.Http.ERR_SERVER);
+                                    rsp.setRspCode(Codes.Http.ERR_CLIENT);
                                 }
                             } else {
                                 rsp.setRspCode(Codes.Http.ERR_CLIENT);
@@ -345,30 +350,9 @@ public class HttpExecutor {
                             if (headers.containsKey("cid") &&
                                 headers.containsKey("type")) {
                                 String type = headers.getFirst("type");
-                                int cid = Integer.parseInt(headers.getFirst("cid"));
-                                try (InputStream body = exchange.getRequestBody()) {
-                                    byte[] data = body.readAllBytes();
-                                    if (data != null) {
-                                        if (DBExecutor.createCmpNotice(cid, type, data)) {
-                                            rsp.setRspCode(Codes.Http.OK);
-                                        } else {
-                                            rsp.setRspCode(Codes.Http.ERR_SERVER);
-                                        }
-                                    } else {
-                                        rsp.setRspCode(Codes.Http.ERR_CLIENT);
-                                    }
-                                } catch (Exception unExc) {
-                                    rsp.setRspCode(Codes.Http.ERR_SERVER);
-                                }
-                            } else {
-                                rsp.setRspCode(Codes.Http.ERR_CLIENT);
-                            }
-                        } else {
-                            int[] ids = DBExecutor.getCompanyId(tdata.getName());
-                            if (ids != null) {
-                                if (ids.length != 0) {
-                                    int cid = ids[0];
-                                    String type = headers.getFirst("type");
+                                if (type.equals("moder_text") ||
+                                    type.equals("moder_doc")) {
+                                    int cid = Integer.parseInt(headers.getFirst("cid"));
                                     try (InputStream body = exchange.getRequestBody()) {
                                         byte[] data = body.readAllBytes();
                                         if (data != null) {
@@ -382,6 +366,37 @@ public class HttpExecutor {
                                         }
                                     } catch (Exception unExc) {
                                         rsp.setRspCode(Codes.Http.ERR_SERVER);
+                                    }
+                                } else {
+                                    rsp.setRspCode(Codes.Http.ERR_CLIENT);
+                                }
+                            } else {
+                                rsp.setRspCode(Codes.Http.ERR_CLIENT);
+                            }
+                        } else {
+                            int[] ids = DBExecutor.getCompanyId(tdata.getName());
+                            if (ids != null) {
+                                if (ids.length != 0) {
+                                    int cid = ids[0];
+                                    String type = headers.getFirst("type");
+                                    if (type.equals("company_doc") ||
+                                        type.equals("company_text")) {
+                                        try (InputStream body = exchange.getRequestBody()) {
+                                            byte[] data = body.readAllBytes();
+                                            if (data != null) {
+                                                if (DBExecutor.createCmpNotice(cid, type, data)) {
+                                                    rsp.setRspCode(Codes.Http.OK);
+                                                } else {
+                                                    rsp.setRspCode(Codes.Http.ERR_SERVER);
+                                                }
+                                            } else {
+                                                rsp.setRspCode(Codes.Http.ERR_CLIENT);
+                                            }
+                                        } catch (Exception unExc) {
+                                            rsp.setRspCode(Codes.Http.ERR_SERVER);
+                                        }
+                                    } else {
+                                        rsp.setRspCode(Codes.Http.ERR_CLIENT);
                                     }
                                 } else {
                                     rsp.setRspCode(Codes.Http.ERR_SERVER);

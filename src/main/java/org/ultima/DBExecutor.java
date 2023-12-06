@@ -2,6 +2,8 @@ package org.ultima;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.sql.*;
 import java.util.Base64;
 import java.util.Date;
@@ -647,13 +649,19 @@ public class DBExecutor {
             Connection companyDB = null;
             PreparedStatement creatingStatement = null;
             try {
-                String filePath = Base64.getEncoder().encodeToString(ByteOperations.getStringBytes(path + "/file_" + Server.getDateform().format(new Date()))) + "_" + Base64.getEncoder().encodeToString(ByteOperations.getLongBytes(new Random().nextLong())) + ".data";
+                String filePath = (path + "/file_" + Server.getDateform().format(new Date()) + "_" + Long.toString(new Random().nextLong()) + ".data");
                 if (!new File(filePath).exists()) {
                     if (!new File(filePath).createNewFile()) {
                         return false;
                     }
                 } else {
                     return false;
+                }
+                try (OutputStream out = new FileOutputStream(filePath)) {
+                    out.write(data);
+                    out.flush();
+                } catch (Exception unExc) {
+                    throw new Exception();
                 }
                 companyDB = DriverManager.getConnection("jdbc:sqlite:" + path + "/notices.db");
                 creatingStatement = companyDB.prepareStatement("INSERT INTO notices (" +
@@ -666,6 +674,7 @@ public class DBExecutor {
                 if (updated == 0) throw new Exception();
                 creatingStatement.close();
                 companyDB.close();
+                return true;
             } catch (Exception unExc) {
                 try {
                     if (creatingStatement != null) creatingStatement.close();
@@ -675,7 +684,6 @@ public class DBExecutor {
                 }
                 return false;
             }
-            return true;
         }
         return false;
     }
