@@ -7,8 +7,8 @@ import java.util.HashMap;
  ***/
 public class TDBExecutor {
     public static class TData {
-        public AccountType getType() {
-            return type;
+        public AccountMode getType() {
+            return mode;
         }
 
         public String getName() {
@@ -19,17 +19,17 @@ public class TDBExecutor {
             return password;
         }
 
-        public static enum AccountType {
+        public static enum AccountMode {
             MODER,
             COMPANY;
         }
 
-        private AccountType type;
+        private AccountMode mode;
         private String name;
         private String password;
 
-        public TData(AccountType type, String name, String password) {
-            this.type = type;
+        public TData(AccountMode type, String name, String password) {
+            this.mode = type;
             this.name = name;
             this.password = password;
         }

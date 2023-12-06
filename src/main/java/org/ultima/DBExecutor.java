@@ -110,7 +110,7 @@ public class DBExecutor {
                     "password, " +
                     "email, " +
                     "path, " +
-                    "last_date, " +
+                    "last_date) " +
                     "VALUES (?, ?, ?, ?, ?)");
             addingStatement.setString(1, name);
             addingStatement.setString(2, password);
@@ -140,9 +140,8 @@ public class DBExecutor {
         PreparedStatement gettingStatement = null;
         try {
             dbConnection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
-            gettingStatement = dbConnection.prepareStatement("SELECT * FROM ? WHERE id = ?");
-            gettingStatement.setString(1, dbName);
-            gettingStatement.setInt(2, id);
+            gettingStatement = dbConnection.prepareStatement("SELECT * FROM " + dbName + " WHERE id = ?");
+            gettingStatement.setInt(1, id);
             ResultSet statementResult = gettingStatement.executeQuery();
             String result = null;
             if (statementResult.next()) {
@@ -171,9 +170,8 @@ public class DBExecutor {
         PreparedStatement gettingStatement = null;
         try {
             dbConnection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
-            gettingStatement = dbConnection.prepareStatement("SELECT * FROM ? WHERE id = ?");
-            gettingStatement.setString(1, dbName);
-            gettingStatement.setInt(2, id);
+            gettingStatement = dbConnection.prepareStatement("SELECT * FROM " + dbName + " WHERE id = ?");
+            gettingStatement.setInt(1, id);
             ResultSet statementResult = gettingStatement.executeQuery();
             int[] result = null;
             if (statementResult.next()) {
@@ -200,13 +198,11 @@ public class DBExecutor {
     public static String[] getAllStringParam(String column, String dbPath, String dbName) {
         Connection dbConnection = null;
         PreparedStatement gettingStatement = null;
-        PreparedStatement countingStatement = null;
+        Statement countingStatement = null;
         try {
             dbConnection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
-            countingStatement = dbConnection.prepareStatement("SELECT COUNT(?) FROM ?");
-            countingStatement.setString(1, column);
-            countingStatement.setString(2, dbName);
-            ResultSet cntRes = countingStatement.executeQuery();
+            countingStatement = dbConnection.createStatement();
+            ResultSet cntRes = countingStatement.executeQuery("SELECT COUNT(" + column + ") FROM " + dbName);
             int cnt = 0;
             /**XXX Replace counter with while & List **/
             if (cntRes.next()) {
@@ -217,7 +213,7 @@ public class DBExecutor {
                 cntRes.close();
                 throw new Exception();
             }
-            gettingStatement = dbConnection.prepareStatement("SELECT * FROM ?");
+            gettingStatement = dbConnection.prepareStatement("SELECT * FROM " + dbName);
             gettingStatement.setString(1, dbName);
             ResultSet statementResult = gettingStatement.executeQuery();
             String[] result = null;
@@ -229,6 +225,8 @@ public class DBExecutor {
                     pos++;
                     result[pos] = statementResult.getString(column);
                 }
+            } else if (cnt == 0) {
+                result = new String[0];
             } else {
                 statementResult.close();
                 throw new Exception();
@@ -251,14 +249,12 @@ public class DBExecutor {
 
     public static int[] getAllIntParam(String column, String dbPath, String dbName) {
         Connection dbConnection = null;
-        PreparedStatement gettingStatement = null;
-        PreparedStatement countingStatement = null;
+        Statement gettingStatement = null;
+        Statement countingStatement = null;
         try {
             dbConnection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
-            countingStatement = dbConnection.prepareStatement("SELECT COUNT(?) FROM ?");
-            countingStatement.setString(1, column);
-            countingStatement.setString(2, dbName);
-            ResultSet cntRes = countingStatement.executeQuery();
+            countingStatement = dbConnection.createStatement();
+            ResultSet cntRes = countingStatement.executeQuery("SELECT COUNT( " + column + " ) FROM " + dbName);
             int cnt = 0;
             /**XXX Replace counter with while & List **/
             if (cntRes.next()) {
@@ -269,9 +265,8 @@ public class DBExecutor {
                 cntRes.close();
                 throw new Exception();
             }
-            gettingStatement = dbConnection.prepareStatement("SELECT * FROM ?");
-            gettingStatement.setString(1, dbName);
-            ResultSet statementResult = gettingStatement.executeQuery();
+            gettingStatement = dbConnection.createStatement();
+            ResultSet statementResult = gettingStatement.executeQuery("SELECT * FROM " + dbName);
             int[] result = null;
             if (statementResult.next()) {
                 result = new int[cnt];
@@ -281,6 +276,8 @@ public class DBExecutor {
                     pos++;
                     result[pos] = statementResult.getInt(column);
                 }
+            } else if (cnt == 0) {
+                result = new int[0];
             } else {
                 statementResult.close();
                 throw new Exception();
@@ -306,11 +303,9 @@ public class DBExecutor {
         PreparedStatement settingStatement = null;
         try {
             dbConnection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
-            settingStatement = dbConnection.prepareStatement("UPDATE ? SET ? = ?, WHERE id = ?");
-            settingStatement.setString(1, dbName);
-            settingStatement.setString(2, column);
-            settingStatement.setString(3, data);
-            settingStatement.setInt(4, id);
+            settingStatement = dbConnection.prepareStatement("UPDATE " + dbName + " SET " + column + " = ? WHERE id = ?");
+            settingStatement.setString(1, data);
+            settingStatement.setInt(2, id);
             int updated = settingStatement.executeUpdate();
             if (updated == 0) throw new Exception();
             settingStatement.close();
@@ -332,11 +327,9 @@ public class DBExecutor {
         PreparedStatement settingStatement = null;
         try {
             dbConnection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
-            settingStatement = dbConnection.prepareStatement("UPDATE ? SET ? = ?, WHERE id = ?");
-            settingStatement.setString(1, dbName);
-            settingStatement.setString(2, column);
-            settingStatement.setInt(3, data);
-            settingStatement.setInt(4, id);
+            settingStatement = dbConnection.prepareStatement("UPDATE " + dbName + " SET " + column + " = ? WHERE id = ?");
+            settingStatement.setInt(1, data);
+            settingStatement.setInt(2, id);
             int updated = settingStatement.executeUpdate();
             if (updated == 0) throw new Exception();
             settingStatement.close();
@@ -359,11 +352,8 @@ public class DBExecutor {
         PreparedStatement countingStatement = null;
         try {
             dbConnection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
-            countingStatement = dbConnection.prepareStatement("SELECT COUNT(?) FROM ?, WHERE ? = ?");
-            countingStatement.setString(1, column);
-            countingStatement.setString(2, dbName);
-            countingStatement.setString(3, paramName);
-            countingStatement.setString(4, paramData);
+            countingStatement = dbConnection.prepareStatement("SELECT COUNT(" + column + ") FROM " + dbName + " WHERE " + paramName + " = ?");
+            countingStatement.setString(1, paramData);
             ResultSet cntRes = countingStatement.executeQuery();
             int cnt = 0;
             /**XXX Replace counter with while & List **/
@@ -375,10 +365,8 @@ public class DBExecutor {
                 cntRes.close();
                 throw new Exception();
             }
-            gettingStatement = dbConnection.prepareStatement("SELECT * FROM ?, WHERE ? = ?");
-            gettingStatement.setString(1, dbName);
-            countingStatement.setString(2, paramName);
-            countingStatement.setString(3, paramData);
+            gettingStatement = dbConnection.prepareStatement("SELECT * FROM " + dbName + " WHERE " + paramName + " = ?");
+            gettingStatement.setString(1, paramData);
             ResultSet statementResult = gettingStatement.executeQuery();
             int[] result = null;
             if (statementResult.next()) {
@@ -398,6 +386,7 @@ public class DBExecutor {
             dbConnection.close();
             return result;
         } catch (Exception dbException) {
+            dbException.printStackTrace();
             try {
                 if (countingStatement != null) countingStatement.close();
                 if (gettingStatement != null) gettingStatement.close();
@@ -415,11 +404,8 @@ public class DBExecutor {
         PreparedStatement countingStatement = null;
         try {
             dbConnection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
-            countingStatement = dbConnection.prepareStatement("SELECT COUNT(?) FROM ?, WHERE ? = ?");
-            countingStatement.setString(1, column);
-            countingStatement.setString(2, dbName);
-            countingStatement.setString(3, paramName);
-            countingStatement.setString(4, paramData);
+            countingStatement = dbConnection.prepareStatement("SELECT COUNT(" + column + ") FROM " + dbName + " WHERE " + paramName + " = ?");
+            countingStatement.setString(1, paramData);
             ResultSet cntRes = countingStatement.executeQuery();
             int cnt = 0;
             /**XXX Replace counter with while & List **/
@@ -431,10 +417,8 @@ public class DBExecutor {
                 cntRes.close();
                 throw new Exception();
             }
-            gettingStatement = dbConnection.prepareStatement("SELECT * FROM ?, WHERE ? = ?");
-            gettingStatement.setString(1, dbName);
-            countingStatement.setString(2, paramName);
-            countingStatement.setString(3, paramData);
+            gettingStatement = dbConnection.prepareStatement("SELECT * FROM " + dbName + " WHERE " + paramName + " = ?");
+            gettingStatement.setString(1, paramData);
             ResultSet statementResult = gettingStatement.executeQuery();
             String[] result = null;
             if (statementResult.next()) {
@@ -471,11 +455,8 @@ public class DBExecutor {
         PreparedStatement countingStatement = null;
         try {
             dbConnection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
-            countingStatement = dbConnection.prepareStatement("SELECT COUNT(?) FROM ?, WHERE ? = ?");
-            countingStatement.setString(1, column);
-            countingStatement.setString(2, dbName);
-            countingStatement.setString(3, paramName);
-            countingStatement.setInt(4, paramData);
+            countingStatement = dbConnection.prepareStatement("SELECT COUNT(" + column + ") FROM " + dbName + " WHERE " + paramName + " = ?");
+            countingStatement.setInt(1, paramData);
             ResultSet cntRes = countingStatement.executeQuery();
             int cnt = 0;
             /**XXX Replace counter with while & List **/
@@ -487,10 +468,8 @@ public class DBExecutor {
                 cntRes.close();
                 throw new Exception();
             }
-            gettingStatement = dbConnection.prepareStatement("SELECT * FROM ?, WHERE ? = ?");
-            gettingStatement.setString(1, dbName);
-            countingStatement.setString(2, paramName);
-            countingStatement.setInt(3, paramData);
+            gettingStatement = dbConnection.prepareStatement("SELECT * FROM " + dbName + " WHERE " + paramName + " = ?");
+            gettingStatement.setInt(1, paramData);
             ResultSet statementResult = gettingStatement.executeQuery();
             int[] result = null;
             if (statementResult.next()) {
@@ -527,11 +506,8 @@ public class DBExecutor {
         PreparedStatement countingStatement = null;
         try {
             dbConnection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
-            countingStatement = dbConnection.prepareStatement("SELECT COUNT(?) FROM ?, WHERE ? = ?");
-            countingStatement.setString(1, column);
-            countingStatement.setString(2, dbName);
-            countingStatement.setString(3, paramName);
-            countingStatement.setInt(4, paramData);
+            countingStatement = dbConnection.prepareStatement("SELECT COUNT(" + column + ") FROM " + dbName + " WHERE " + paramName + " = ?");
+            countingStatement.setInt(1, paramData);
             ResultSet cntRes = countingStatement.executeQuery();
             int cnt = 0;
             /**XXX Replace counter with while & List **/
@@ -543,10 +519,8 @@ public class DBExecutor {
                 cntRes.close();
                 throw new Exception();
             }
-            gettingStatement = dbConnection.prepareStatement("SELECT * FROM ?, WHERE ? = ?");
-            gettingStatement.setString(1, dbName);
-            countingStatement.setString(2, paramName);
-            countingStatement.setInt(3, paramData);
+            gettingStatement = dbConnection.prepareStatement("SELECT * FROM " + dbName + " WHERE " + paramName + " = ?");
+            gettingStatement.setInt(1, paramData);
             ResultSet statementResult = gettingStatement.executeQuery();
             String[] result = null;
             if (statementResult.next()) {
@@ -577,6 +551,10 @@ public class DBExecutor {
         }
     }
 
+    public static int[] getCompanyIds() {
+        return getAllIntParam("id", cmpsDBPath, "companies");
+    }
+
     public static String getCompanyName(int id) {
         return getStringParam(id, "name", cmpsDBPath, "companies");
     }
@@ -601,6 +579,19 @@ public class DBExecutor {
         return getStringParam(id, "last_date", cmpsDBPath, "companies");
     }
 
+    public static boolean isCmpPasswordCorrect(String name, String password) {
+        int[] id = getIntsByStringParam("id", "name", name, cmpsDBPath, "companies");
+        if (id != null) {
+            if (id.length != 0) {
+                String corPass = getCompanyPassword(id[0]);
+                if (corPass != null) {
+                    return password.equals(corPass);
+                }
+            }
+        }
+        return false;
+    }
+
     public static String getCmpNoticeType(int cmpId, int ntcId) {
         String path = getCompanyPath(cmpId);
         if (path != null) {
@@ -608,6 +599,15 @@ public class DBExecutor {
             return getStringParam(ntcId, "type", path, "notices");
         }
         return null;
+    }
+
+    public static boolean setCmpNoticeType(int cmpId, int ntcId, String type) {
+        String path = getCompanyPath(cmpId);
+        if (path != null) {
+            path += "/notices.db";
+            return setStringParam(ntcId, "type", type, path, "notices");
+        }
+        return false;
     }
 
     public static String getCmpNoticeDataPath(int cmpId, int ntcId) {
@@ -658,7 +658,7 @@ public class DBExecutor {
                 companyDB = DriverManager.getConnection("jdbc:sqlite:" + path + "/notices.db");
                 creatingStatement = companyDB.prepareStatement("INSERT INTO notices (" +
                         "type, " +
-                        "path, " +
+                        "path) " +
                         "VALUES (?, ?)");
                 creatingStatement.setString(1, type);
                 creatingStatement.setString(2, filePath);
