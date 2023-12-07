@@ -361,7 +361,7 @@ class PageState extends State<Page> {
                             TextButton(
                               // dNL (17:484)
                               onPressed: () {
-                                Navigator.pushNamed(context, '/company/chat', arguments: {'name': name, 'password': password});
+                                Navigator.pushNamed(context, '/company/send_doc', arguments: {'name': name, 'password': password});
                               },
                               style: TextButton.styleFrom (
                                 padding: EdgeInsets.zero,

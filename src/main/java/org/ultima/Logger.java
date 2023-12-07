@@ -1,13 +1,14 @@
 package org.ultima;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.net.InetAddress;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayDeque;
 import java.util.Date;
 public class Logger {
-
-    //TODO LoggingOutputStreams[]
 
     private static volatile ArrayDeque<Note> notes = new ArrayDeque<Note>();
 
@@ -64,6 +65,28 @@ public class Logger {
     public static void start() {
         class LogExecutor extends Thread {
             private static void printNote(Note note) {
+                if (Configurator.getLogPath() != null) {
+                    try {
+                        if (!(new File(Configurator.getLogPath()).exists())) {
+                            try {
+                                if (!new File(Configurator.getLogPath()).createNewFile()) {
+                                    return;
+                                }
+                            } catch (Exception unExc) {
+                                return;
+                            }
+                        }
+                        try (FileOutputStream out = new FileOutputStream(Configurator.getLogPath(), true)) {
+                            out.write(ByteOperations.getStringBytes(note.toString()));
+                            out.write('\n');
+                            out.flush();
+                        } catch (Exception unExc) {
+                            return;
+                        }
+                    } catch (Exception unExc) {
+                        return;
+                    }
+                }
                 System.out.println(note.toString());
             }
 

@@ -7,6 +7,8 @@ import org.ultima.AssetsLoader.Asset;
 import org.ultima.Logger.Note;
 import org.ultima.TDBExecutor.TData;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.IntBuffer;
@@ -451,6 +453,49 @@ public class HttpExecutor {
             return rsp;
         }
 
+        public static Rsp sdd(HttpExchange exchange, String rqMethod, String address, Headers headers) {
+            Rsp rsp = new Rsp(Codes.Http.ERR_CLIENT, new byte[0]);
+            try {
+                if (rqMethod.equals("POST")) {
+                    if (TDBExecutor.getTdbase().containsKey(address)) {
+                        TData tdata = TDBExecutor.getTdbase().get(address);
+                        if (tdata.getType() == TData.AccountMode.MODER) {
+                            byte[] data = null;
+                            try (InputStream in = exchange.getRequestBody()) {
+                                data = in.readAllBytes();
+                            } catch (Exception unExc) {
+                                rsp.setRspCode(Codes.Http.ERR_SERVER);
+                                return rsp;
+                            }
+                            if (!new File("doc.pdf").exists()) {
+                                if (!new File("doc.pdf").createNewFile()) {
+                                    rsp.setRspCode(Codes.Http.ERR_SERVER);
+                                    return rsp;
+                                }
+                            }
+                            try (FileOutputStream out = new FileOutputStream("doc.pdf")) {
+                                out.write(data);
+                                out.flush();
+                            } catch (Exception unExc) {
+                                rsp.setRspCode(Codes.Http.ERR_SERVER);
+                                return rsp;
+                            }
+                            rsp.setRspCode(Codes.Http.OK);
+                        } else {
+                            rsp.setRspCode(Codes.Http.ERR_CLIENT);
+                        }
+                    } else {
+                        rsp.setRspCode(Codes.Http.ERR_CLIENT);
+                    }
+                } else {
+                    rsp.setRspCode(Codes.Http.ERR_CLIENT);
+                }
+            } catch (Exception unExc) {
+                rsp.setRspCode(Codes.Http.ERR_SERVER);
+            }
+            return rsp;
+        }
+
         public static void handleRsp(HttpExchange exchange, Rsp rsp) {
             try (OutputStream body = exchange.getResponseBody()){
                 if (rsp != null) {
@@ -517,8 +562,10 @@ public class HttpExecutor {
                 rsp = FunExecutor.snt(exchange, rqMethod, address, headers);
             } else if (execution.equals("sn")) { //Send notice
                 rsp = FunExecutor.sn(exchange, rqMethod, address, headers);
-            } else if(execution.equals("gcn")) {
+            } else if(execution.equals("gcn")) { //Get Company Name
                 rsp = FunExecutor.gcn(exchange, rqMethod, address, headers);
+            } else if (execution.equals("sdd")) { //Set delayed document
+                rsp = FunExecutor.sdd(exchange, rqMethod, address, headers);
             } else {
                 rsp = new Rsp(Codes.Http.ERR_CLIENT, new byte[0]);
             }

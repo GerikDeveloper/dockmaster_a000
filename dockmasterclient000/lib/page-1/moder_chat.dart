@@ -15,7 +15,8 @@ class Notice extends StatelessWidget {
   final int cid;
   final int nid;
   final String companyName;
-  final String type;
+  String type;
+  final int id;
 
   void _failed(context) {
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Ошибка')));
@@ -33,6 +34,13 @@ class Notice extends StatelessWidget {
     } catch (_) {
       accept = 1;
     }
+    if (type.contains('doc')) {
+      type = 'accepted_company_doc';
+      page.types[id] = 'accepted_company_doc';
+    } else if (type.contains('text')){
+      type = 'accepted_company_text';
+      page.types[id] = 'accepted_company_text';
+    }
     page.upd();
   }
 
@@ -47,6 +55,13 @@ class Notice extends StatelessWidget {
       }
     } catch (_) {
       accept = 1;
+    }
+    if (type.contains('doc')) {
+      type = 'declined_company_doc';
+      page.types[id] = 'declined_company_doc';
+    } else if (type.contains('text')){
+      type = 'declined_company_text';
+      page.types[id] = 'declined_company_text';
     }
     page.upd();
   }
@@ -86,7 +101,7 @@ class Notice extends StatelessWidget {
     } catch (_) {}
   }
 
-  const Notice({super.key, required this.cid, required this.nid, required this.companyName, required this.type});
+  Notice({super.key, required this.cid, required this.nid, required this.companyName, required this.type, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -205,6 +220,7 @@ class PageState extends State<Page> {
   late List<int> nids = List<int>.empty(growable: true);
   late List<String> companyNames = List<String>.empty(growable: true);
   late List<String> types = List<String>.empty(growable: true);
+  String cnt = 'Загрузка...';
 
   void upd() {
     setState(() {});
@@ -212,6 +228,7 @@ class PageState extends State<Page> {
 
   Future<void> load() async {
     http.Response respcids = await http.get(rest_uri, headers: {'exe': 'gaci'});
+    int tcnt = 0;
     if (respcids.statusCode == ok) {
       List<int> tcids = respcids.body.split(' ').map(int.parse).toList();
       for (int cid in tcids) {
@@ -231,6 +248,9 @@ class PageState extends State<Page> {
                 _failed();
                 return;
               }
+              if (respntype.body.split('declined').length == 1 && respntype.body.split('accepted').length == 1) {
+                tcnt++;
+              }
             } else {
               _failed();
               return;
@@ -242,6 +262,7 @@ class PageState extends State<Page> {
         }
       }
       loaded = true;
+      cnt = '$tcnt';
       setState(() {});
     } else {
       _failed();
@@ -487,13 +508,13 @@ class PageState extends State<Page> {
                                   height: 41*fem,
                                   child: TextButton(
                                     onPressed: () {
-                                      Navigator.pushNamed(context, '/moder/summary', arguments: {'name': name, 'password': password});
+                                      Navigator.pushNamed(context, '/moder/send_doc', arguments: {'name': name, 'password': password});
                                     },
                                     style: TextButton.styleFrom (
                                       padding: EdgeInsets.zero,
                                     ),
                                     child: Text(
-                                      'Уведомления',
+                                      'Рассылка',
                                       style: SafeGoogleFont (
                                         'Vollkorn',
                                         fontSize: 29*ffem,
@@ -613,7 +634,7 @@ class PageState extends State<Page> {
                                 padding: EdgeInsets.zero,
                               ),
                               child: Text(
-                                '/Проверенные документы',
+                                'Не проверенно: $cnt',
                                 style: SafeGoogleFont (
                                   'Vollkorn',
                                   fontSize: 29*ffem,
@@ -635,7 +656,7 @@ class PageState extends State<Page> {
                             width: 428*fem,
                             height: 41*fem,
                             child: Text(
-                              'Не проверенные документы',
+                              'Модерация',
                               style: SafeGoogleFont (
                                 'Vollkorn',
                                 fontSize: 29*ffem,
@@ -724,7 +745,7 @@ class PageState extends State<Page> {
                             ),
                             Expanded(
                               child: ListView.builder(itemCount: nids.length, itemBuilder: (context, index) {
-                                return Notice(cid: cids[index], nid: nids[index], companyName: companyNames[index], type: types[index]);
+                                return Notice(cid: cids[index], nid: nids[index], companyName: companyNames[index], type: types[index], id: index);
                               }),
                             ),
                           ],

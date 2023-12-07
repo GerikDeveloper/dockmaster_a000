@@ -247,10 +247,10 @@ class PageState extends State<Page> {
                                   height: 41*fem,
                                   child: TextButton(
                                     onPressed: () {
-                                      Navigator.pushNamed(context, '/moder/summary', arguments: {'name': name, 'password': password});
+                                      Navigator.pushNamed(context, '/moder/send_doc', arguments: {'name': name, 'password': password});
                                     },
                                     child: Text(
-                                      'Уведомления',
+                                      'Рассылка',
                                       style: SafeGoogleFont (
                                         'Vollkorn',
                                         fontSize: 29*ffem,
@@ -397,7 +397,9 @@ class PageState extends State<Page> {
                                     left: 0*fem,
                                     top: 0*fem,
                                     child: TextButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.pushNamed(context, '/moder/chat', arguments: {'name': name, 'password': password});
+                                      },
                                       style: TextButton.styleFrom (
                                         padding: EdgeInsets.zero,
                                       ),

@@ -1,0 +1,179 @@
+[(server): 2023-12-07T10:42:06]: {Configs has been loaded}
+[(server): 2023-12-07T10:42:06]: {Creating tdb...}
+[(server): 2023-12-07T10:42:06]: {TDB has been created}
+[(server): 2023-12-07T10:42:06]: {Loading db...}
+[(server): 2023-12-07T10:42:06]: {Loading companies db...}
+[(server): 2023-12-07T10:42:07]: {DB has been loaded}
+[(server): 2023-12-07T10:42:07]: {Attaching notifier...}
+[(server): 2023-12-07T10:42:08]: {Notifier has been attached}
+[(server): 2023-12-07T10:42:08]: {Starting http server...}
+[(server): 2023-12-07T10:42:08]: {Setting up NotifierController...}
+[(server): 2023-12-07T10:42:08]: {NotifierController has been set up}
+[(server): 2023-12-07T10:42:08]: {Server has been started on port: 8080}
+[(server): 2023-12-07T10:43:32]: {Configs has been loaded}
+[(server): 2023-12-07T10:43:32]: {Creating tdb...}
+[(server): 2023-12-07T10:43:32]: {TDB has been created}
+[(server): 2023-12-07T10:43:32]: {Loading db...}
+[(server): 2023-12-07T10:43:32]: {Loading companies db...}
+[(server): 2023-12-07T10:43:33]: {DB has been loaded}
+[(server): 2023-12-07T10:43:33]: {Attaching notifier...}
+[(server): 2023-12-07T10:43:34]: {Notifier has been attached}
+[(server): 2023-12-07T10:43:34]: {Starting http server...}
+[(server): 2023-12-07T10:43:34]: {Setting up NotifierController...}
+[(server): 2023-12-07T10:43:34]: {NotifierController has been set up}
+[(server): 2023-12-07T10:43:34]: {Server has been started on port: 8080}
+[(server): 2023-12-07T11:02:50]: {Configs has been loaded}
+[(server): 2023-12-07T11:02:50]: {Creating tdb...}
+[(server): 2023-12-07T11:02:50]: {TDB has been created}
+[(server): 2023-12-07T11:02:50]: {Loading db...}
+[(server): 2023-12-07T11:02:50]: {Loading companies db...}
+[(server): 2023-12-07T11:02:51]: {DB has been loaded}
+[(server): 2023-12-07T11:02:51]: {Attaching notifier...}
+[(server): 2023-12-07T11:02:52]: {Notifier has been attached}
+[(server): 2023-12-07T11:02:52]: {Starting http server...}
+[(server): 2023-12-07T11:02:52]: {Setting up NotifierController...}
+[(server): 2023-12-07T11:02:52]: {NotifierController has been set up}
+[(server): 2023-12-07T11:02:52]: {Server has been started on port: 8080}
+[(server): 2023-12-07T11:19:15]: {Configs has been loaded}
+[(server): 2023-12-07T11:19:15]: {Creating tdb...}
+[(server): 2023-12-07T11:19:15]: {TDB has been created}
+[(server): 2023-12-07T11:19:15]: {Loading db...}
+[(server): 2023-12-07T11:19:15]: {Loading companies db...}
+[(server): 2023-12-07T11:19:15]: {DB has been loaded}
+[(server): 2023-12-07T11:19:15]: {Attaching notifier...}
+[(server): 2023-12-07T11:19:16]: {Notifier has been attached}
+[(server): 2023-12-07T11:19:16]: {Starting http server...}
+[(server): 2023-12-07T11:19:16]: {Setting up NotifierController...}
+[(server): 2023-12-07T11:19:16]: {NotifierController has been set up}
+[(server): 2023-12-07T11:19:16]: {Server has been started on port: 8080}
+[(server): 2023-12-07T11:28:59]: {NotifierController error while searching}
+[(server): 2023-12-07T11:29:09]: {NotifierController error while searching}
+[(server): 2023-12-07T11:29:20]: {NotifierController error while searching}
+[(server): 2023-12-07T11:29:31]: {NotifierController error while searching}
+[(server): 2023-12-07T11:29:42]: {NotifierController error while searching}
+[(server): 2023-12-07T11:34:00]: {Configs has been loaded}
+[(server): 2023-12-07T11:34:00]: {Creating tdb...}
+[(server): 2023-12-07T11:34:00]: {TDB has been created}
+[(server): 2023-12-07T11:34:00]: {Loading db...}
+[(server): 2023-12-07T11:34:00]: {Loading companies db...}
+[(server): 2023-12-07T11:34:00]: {DB has been loaded}
+[(server): 2023-12-07T11:34:00]: {Attaching notifier...}
+[(server): 2023-12-07T11:34:00]: {Failed to attach notifier}
+[(server): 2023-12-07T11:34:00]: {Please restart}
+[(server): 2023-12-07T11:34:08]: {Configs has been loaded}
+[(server): 2023-12-07T11:34:08]: {Creating tdb...}
+[(server): 2023-12-07T11:34:08]: {TDB has been created}
+[(server): 2023-12-07T11:34:08]: {Loading db...}
+[(server): 2023-12-07T11:34:08]: {Loading companies db...}
+[(server): 2023-12-07T11:34:08]: {DB has been loaded}
+[(server): 2023-12-07T11:34:08]: {Attaching notifier...}
+[(server): 2023-12-07T11:34:08]: {Failed to attach notifier}
+[(server): 2023-12-07T11:34:08]: {Please restart}
+[(server): 2023-12-07T11:34:34]: {Configs has been loaded}
+[(server): 2023-12-07T11:34:34]: {Creating tdb...}
+[(server): 2023-12-07T11:34:34]: {TDB has been created}
+[(server): 2023-12-07T11:34:34]: {Loading db...}
+[(server): 2023-12-07T11:34:34]: {Loading companies db...}
+[(server): 2023-12-07T11:34:35]: {DB has been loaded}
+[(server): 2023-12-07T11:34:35]: {Attaching notifier...}
+[(server): 2023-12-07T11:34:36]: {Notifier has been attached}
+[(server): 2023-12-07T11:34:36]: {Starting http server...}
+[(server): 2023-12-07T11:34:36]: {Setting up NotifierController...}
+[(server): 2023-12-07T11:34:36]: {NotifierController has been set up}
+[(server): 2023-12-07T11:34:36]: {Server has been started on port: 8080}
+[(server): 2023-12-07T11:39:38]: {Configs has been loaded}
+[(server): 2023-12-07T11:39:38]: {Creating tdb...}
+[(server): 2023-12-07T11:39:38]: {TDB has been created}
+[(server): 2023-12-07T11:39:38]: {Loading db...}
+[(server): 2023-12-07T11:39:38]: {Loading companies db...}
+[(server): 2023-12-07T11:39:39]: {DB has been loaded}
+[(server): 2023-12-07T11:39:39]: {Attaching notifier...}
+[(server): 2023-12-07T11:39:40]: {Notifier has been attached}
+[(server): 2023-12-07T11:39:40]: {Starting http server...}
+[(server): 2023-12-07T11:39:40]: {Setting up NotifierController...}
+[(server): 2023-12-07T11:39:40]: {NotifierController has been set up}
+[(server): 2023-12-07T11:39:40]: {Server has been started on port: 8080}
+[(server): 2023-12-07T11:43:27]: {Configs has been loaded}
+[(server): 2023-12-07T11:43:27]: {Creating tdb...}
+[(server): 2023-12-07T11:43:27]: {TDB has been created}
+[(server): 2023-12-07T11:43:27]: {Loading db...}
+[(server): 2023-12-07T11:43:27]: {Loading companies db...}
+[(server): 2023-12-07T11:43:28]: {DB has been loaded}
+[(server): 2023-12-07T11:43:28]: {Attaching notifier...}
+[(server): 2023-12-07T11:43:28]: {Notifier has been attached}
+[(server): 2023-12-07T11:43:28]: {Starting http server...}
+[(server): 2023-12-07T11:43:28]: {Setting up NotifierController...}
+[(server): 2023-12-07T11:43:28]: {NotifierController has been set up}
+[(server): 2023-12-07T11:43:28]: {Server has been started on port: 8080}
+[(server): 2023-12-07T11:50:27]: {Configs has been loaded}
+[(server): 2023-12-07T11:50:27]: {Creating tdb...}
+[(server): 2023-12-07T11:50:27]: {TDB has been created}
+[(server): 2023-12-07T11:50:27]: {Loading db...}
+[(server): 2023-12-07T11:50:27]: {Loading companies db...}
+[(server): 2023-12-07T11:50:27]: {DB has been loaded}
+[(server): 2023-12-07T11:50:27]: {Attaching notifier...}
+[(server): 2023-12-07T11:50:28]: {Notifier has been attached}
+[(server): 2023-12-07T11:50:28]: {Starting http server...}
+[(server): 2023-12-07T11:50:28]: {Setting up NotifierController...}
+[(server): 2023-12-07T11:50:28]: {NotifierController has been set up}
+[(server): 2023-12-07T11:50:28]: {Server has been started on port: 8080}
+[(server): 2023-12-07T11:55:14]: {Configs has been loaded}
+[(server): 2023-12-07T11:55:14]: {Creating tdb...}
+[(server): 2023-12-07T11:55:14]: {TDB has been created}
+[(server): 2023-12-07T11:55:14]: {Loading db...}
+[(server): 2023-12-07T11:55:14]: {Loading companies db...}
+[(server): 2023-12-07T11:55:15]: {DB has been loaded}
+[(server): 2023-12-07T11:55:15]: {Attaching notifier...}
+[(server): 2023-12-07T11:55:15]: {Notifier has been attached}
+[(server): 2023-12-07T11:55:15]: {Starting http server...}
+[(server): 2023-12-07T11:55:15]: {Setting up NotifierController...}
+[(server): 2023-12-07T11:55:15]: {NotifierController has been set up}
+[(server): 2023-12-07T11:55:15]: {Server has been started on port: 8080}
+[(server): 2023-12-08T12:00:23]: {Configs has been loaded}
+[(server): 2023-12-08T12:00:23]: {Creating tdb...}
+[(server): 2023-12-08T12:00:23]: {TDB has been created}
+[(server): 2023-12-08T12:00:23]: {Loading db...}
+[(server): 2023-12-08T12:00:23]: {Loading companies db...}
+[(server): 2023-12-08T12:00:24]: {DB has been loaded}
+[(server): 2023-12-08T12:00:24]: {Attaching notifier...}
+[(server): 2023-12-08T12:00:25]: {Notifier has been attached}
+[(server): 2023-12-08T12:00:25]: {Starting http server...}
+[(server): 2023-12-08T12:00:25]: {Setting up NotifierController...}
+[(server): 2023-12-08T12:00:25]: {NotifierController has been set up}
+[(server): 2023-12-08T12:00:25]: {Server has been started on port: 8080}
+[(server): 2023-12-08T12:07:36]: {Configs has been loaded}
+[(server): 2023-12-08T12:07:36]: {Creating tdb...}
+[(server): 2023-12-08T12:07:36]: {TDB has been created}
+[(server): 2023-12-08T12:07:36]: {Loading db...}
+[(server): 2023-12-08T12:07:36]: {Loading companies db...}
+[(server): 2023-12-08T12:07:37]: {DB has been loaded}
+[(server): 2023-12-08T12:07:37]: {Attaching notifier...}
+[(server): 2023-12-08T12:07:37]: {Notifier has been attached}
+[(server): 2023-12-08T12:07:37]: {Starting http server...}
+[(server): 2023-12-08T12:07:37]: {Setting up NotifierController...}
+[(server): 2023-12-08T12:07:37]: {NotifierController has been set up}
+[(server): 2023-12-08T12:07:37]: {Server has been started on port: 8080}
+[(server): 2023-12-08T12:18:15]: {Configs has been loaded}
+[(server): 2023-12-08T12:18:15]: {Creating tdb...}
+[(server): 2023-12-08T12:18:15]: {TDB has been created}
+[(server): 2023-12-08T12:18:15]: {Loading db...}
+[(server): 2023-12-08T12:18:15]: {Loading companies db...}
+[(server): 2023-12-08T12:18:15]: {DB has been loaded}
+[(server): 2023-12-08T12:18:15]: {Attaching notifier...}
+[(server): 2023-12-08T12:18:16]: {Notifier has been attached}
+[(server): 2023-12-08T12:18:16]: {Starting http server...}
+[(server): 2023-12-08T12:18:16]: {Setting up NotifierController...}
+[(server): 2023-12-08T12:18:16]: {NotifierController has been set up}
+[(server): 2023-12-08T12:18:16]: {Server has been started on port: 8080}
+[(server): 2023-12-08T12:25:45]: {Configs has been loaded}
+[(server): 2023-12-08T12:25:45]: {Creating tdb...}
+[(server): 2023-12-08T12:25:45]: {TDB has been created}
+[(server): 2023-12-08T12:25:45]: {Loading db...}
+[(server): 2023-12-08T12:25:45]: {Loading companies db...}
+[(server): 2023-12-08T12:25:45]: {DB has been loaded}
+[(server): 2023-12-08T12:25:45]: {Attaching notifier...}
+[(server): 2023-12-08T12:25:46]: {Notifier has been attached}
+[(server): 2023-12-08T12:25:46]: {Starting http server...}
+[(server): 2023-12-08T12:25:46]: {Setting up NotifierController...}
+[(server): 2023-12-08T12:25:46]: {NotifierController has been set up}
+[(server): 2023-12-08T12:25:46]: {Server has been started on port: 8080}

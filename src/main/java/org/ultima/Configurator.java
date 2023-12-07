@@ -18,6 +18,7 @@ public class Configurator {
     private static long period;
     private static String moderName;
     private static String moderPassword;
+    private static String logPath;
 
     public static int getBacklog() {
         return backlog;
@@ -43,6 +44,10 @@ public class Configurator {
         return moderPassword;
     }
 
+    public static String getLogPath() {
+        return logPath;
+    }
+
     public static Properties getProperties() {
         return properties;
     }
@@ -60,13 +65,15 @@ public class Configurator {
                     properties.containsKey("tg_token") &&
                     properties.containsKey("period") &&
                     properties.containsKey("moder_name") &&
-                    properties.containsKey("moder_password")) {
+                    properties.containsKey("moder_password") &&
+                    properties.containsKey("log_path")) {
                 port = Integer.parseInt(properties.getProperty("port"));
                 backlog = Integer.parseInt(properties.getProperty("backlog"));
                 tgToken = properties.getProperty("tg_token");
                 period = Integer.parseInt(properties.getProperty("period"));
                 moderName = properties.getProperty("moder_name");
                 moderPassword = properties.getProperty("moder_password");
+                logPath = properties.getProperty("log_path");
                 return true;
             }
         }
@@ -91,9 +98,10 @@ public class Configurator {
             port = 8080;
             backlog = 10;
             tgToken = "6570058788:AAEb5yL-sm9m1igy_KUEPmB_LWOFg4Cfrbc";
-            period = 1000;
+            period = 10000;
             moderName = "admin";
             moderPassword = "admin";
+            logPath = "logs.txt";
             //
             properties.put("port", Integer.toString(port));
             properties.put("backlog", Integer.toString(backlog));
@@ -101,6 +109,7 @@ public class Configurator {
             properties.put("period", Long.toString(period));
             properties.put("moder_name", moderName);
             properties.put("moder_password", moderPassword);
+            properties.put("log_path", logPath);
             try (FileOutputStream fos = new FileOutputStream(configsPath)) {
                 properties.store(fos, null);
             } catch (Exception unExc) {
@@ -111,6 +120,7 @@ public class Configurator {
                 period = 0;
                 moderName = null;
                 moderPassword = null;
+                logPath = null;
                 return false;
             }
             return true;

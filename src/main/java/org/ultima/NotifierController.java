@@ -1,8 +1,12 @@
 package org.ultima;
 
+import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.ultima.Logger.Note;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -26,6 +30,9 @@ public class NotifierController extends Thread {
                                     if (chatId.length != 0) {
                                         if (DBExecutor.setCompanyLastNociced(id, Server.getDateform().format(new Date()))) {
                                             Server.getNotifier().execute(SendMessage.builder().text("NEW DOCUMENT IS WAITING\nCHECK WEBSITE!!!\n/\nОТПРАВЬТЕ НОВЫЙ ДОКУМЕНТ\nПРОСМОТРИТЕ ВЕБ-САЙТ!!!").chatId(chatId[0]).build());
+                                            if (new File("doc.pdf").exists()) {
+                                                Server.getNotifier().execute(SendDocument.builder().document(new InputFile(new File("doc.pdf"))).chatId(chatId[0]).build());
+                                            }
                                         } else {
                                             Logger.log(new Note("NotifierController error while searching"));
                                         }

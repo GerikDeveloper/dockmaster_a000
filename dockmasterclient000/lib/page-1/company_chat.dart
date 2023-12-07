@@ -515,23 +515,6 @@ class PageState extends State<Page> {
                                   height: 1.3925*ffem/fem,
                                   color: Color(0xff000000),
                                 ),
-                                children: [
-                                  TextSpan(
-                                    text: '/',
-                                  ),
-                                  TextSpan(
-                                    text: 'Проверенные документы',
-                                    style: SafeGoogleFont (
-                                      'Vollkorn',
-                                      fontSize: 29*ffem,
-                                      fontWeight: FontWeight.w400,
-                                      height: 1.3925*ffem/fem,
-                                      decoration: TextDecoration.underline,
-                                      color: Color(0xff000000),
-                                      decorationColor: Color(0xff000000),
-                                    ),
-                                  ),
-                                ],
                               ),
                             ),
                           ),
@@ -551,7 +534,7 @@ class PageState extends State<Page> {
                                 padding: EdgeInsets.zero,
                               ),
                               child: Text(
-                                'Не проверенные документы',
+                                'Все документы',
                                 style: SafeGoogleFont (
                                   'Vollkorn',
                                   fontSize: 29*ffem,
@@ -638,7 +621,7 @@ class PageState extends State<Page> {
                               ),
                             ),
                             Expanded(
-                              child: ListView.builder(itemCount: nids.length, itemBuilder: (context, index) {
+                              child: ListView.builder(itemCount: nids.length, padding: EdgeInsets.all(8.0), itemBuilder: (context, index) {
                                 return Notice(nid: nids[index], type: types[index]);
                               }),
                             ),

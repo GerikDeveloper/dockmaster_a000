@@ -240,13 +240,13 @@ class PageState extends State<Page> {
                               child: Align(
                                 child: TextButton(
                                   onPressed: (){
-                                    Navigator.pushNamed(context, '/moder/summary', arguments: {'name': name, 'password': password});
+                                    Navigator.pushNamed(context, '/moder/send_doc', arguments: {'name': name, 'password': password});
                                   },
                                   child: SizedBox(
                                     width: 204*fem,
                                     height: 41*fem,
                                     child: Text(
-                                      'Уведомления',
+                                      'Рассылка',
                                       style: SafeGoogleFont (
                                         'Vollkorn',
                                         fontSize: 29*ffem,
