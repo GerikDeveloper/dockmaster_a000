@@ -177,3 +177,29 @@
 [(server): 2023-12-08T12:25:46]: {Setting up NotifierController...}
 [(server): 2023-12-08T12:25:46]: {NotifierController has been set up}
 [(server): 2023-12-08T12:25:46]: {Server has been started on port: 8080}
+[(server): 2023-12-08T12:34:04]: {Configs has been loaded}
+[(server): 2023-12-08T12:34:04]: {Creating tdb...}
+[(server): 2023-12-08T12:34:04]: {TDB has been created}
+[(server): 2023-12-08T12:34:04]: {Loading db...}
+[(server): 2023-12-08T12:34:04]: {Loading companies db...}
+[(server): 2023-12-08T12:34:04]: {Unknown file or sql error}
+[(server): 2023-12-08T12:34:04]: {Failed to load db}
+[(server): 2023-12-08T12:34:04]: {Creating new db...}
+[(server): 2023-12-08T12:34:04]: {Creating database...}
+[(server): 2023-12-08T12:34:04]: {DBDirectory was found}
+[(server): 2023-12-08T12:34:04]: {DBFile was found}
+[(server): 2023-12-08T12:34:04]: {Unknown file or sqlite error}
+[(server): 2023-12-08T12:34:04]: {Failed to create new db}
+[(server): 2023-12-08T12:34:04]: {Please restart}
+[(server): 2023-12-08T12:34:44]: {Configs has been loaded}
+[(server): 2023-12-08T12:34:44]: {Creating tdb...}
+[(server): 2023-12-08T12:34:44]: {TDB has been created}
+[(server): 2023-12-08T12:34:44]: {Loading db...}
+[(server): 2023-12-08T12:34:44]: {Loading companies db...}
+[(server): 2023-12-08T12:34:45]: {DB has been loaded}
+[(server): 2023-12-08T12:34:45]: {Attaching notifier...}
+[(server): 2023-12-08T12:34:46]: {Notifier has been attached}
+[(server): 2023-12-08T12:34:46]: {Starting http server...}
+[(server): 2023-12-08T12:34:46]: {Setting up NotifierController...}
+[(server): 2023-12-08T12:34:46]: {NotifierController has been set up}
+[(server): 2023-12-08T12:34:46]: {Server has been started on port: 8080}
