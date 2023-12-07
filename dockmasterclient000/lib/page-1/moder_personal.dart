@@ -240,7 +240,7 @@ class PageState extends State<Page> {
                               child: Align(
                                 child: TextButton(
                                   onPressed: (){
-                                    Navigator.pushNamed(context, '/moder/chat', arguments: {'name': name, 'password': password});
+                                    Navigator.pushNamed(context, '/moder/summary', arguments: {'name': name, 'password': password});
                                   },
                                   child: SizedBox(
                                     width: 204*fem,
@@ -325,7 +325,7 @@ class PageState extends State<Page> {
                             style: SafeGoogleFont (
                               'Vollkorn',
                               fontSize: 29*ffem,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.w500,
                               height: 1.3925*ffem/fem,
                               color: Color(0xff000000),
                             ),

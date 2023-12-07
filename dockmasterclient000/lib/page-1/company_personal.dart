@@ -325,7 +325,7 @@ class PageState extends State<Page> {
                             style: SafeGoogleFont (
                               'Vollkorn',
                               fontSize: 29*ffem,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.w500,
                               height: 1.3925*ffem/fem,
                               color: Color(0xff000000),
                             ),

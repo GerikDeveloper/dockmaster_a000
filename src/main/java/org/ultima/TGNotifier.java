@@ -50,7 +50,6 @@ public class TGNotifier extends TelegramLongPollingBot {
                         }
                     }
                 } catch (Exception unExc) {
-                    unExc.printStackTrace();
                     Logger.log(new Note("Failed to response in tg_bot"));
                 }
             }

@@ -434,7 +434,9 @@ class PageState extends State<Page> {
                         // 7kY (21:202)
                         margin: EdgeInsets.fromLTRB(0*fem, 3*fem, 29*fem, 0*fem),
                         child: TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/moder/', arguments: {'name': name, 'password': password});
+                          },
                           style: TextButton.styleFrom (
                             padding: EdgeInsets.zero,
                           ),
@@ -485,6 +487,7 @@ class PageState extends State<Page> {
                                   height: 41*fem,
                                   child: TextButton(
                                     onPressed: () {
+                                      Navigator.pushNamed(context, '/moder/summary', arguments: {'name': name, 'password': password});
                                     },
                                     style: TextButton.styleFrom (
                                       padding: EdgeInsets.zero,
@@ -513,7 +516,7 @@ class PageState extends State<Page> {
                                   height: 81*fem,
                                   child: TextButton(
                                     onPressed: () {
-                                      Navigator.pushNamed(context, '/moder/personal');
+                                      Navigator.pushNamed(context, '/moder/personal', arguments: {'name': name, 'password': password});
                                     },
                                     style: TextButton.styleFrom (
                                       padding: EdgeInsets.zero,

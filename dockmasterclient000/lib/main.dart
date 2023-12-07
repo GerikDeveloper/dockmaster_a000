@@ -13,6 +13,7 @@ import 'package:dockmasterclient000/page-1/company_personal.dart' as company_per
 import 'package:dockmasterclient000/page-1/moder_home.dart' as moder_home;
 import 'package:dockmasterclient000/page-1/moder_chat.dart' as moder_chat;
 import 'package:dockmasterclient000/page-1/moder_personal.dart' as moder_personal;
+import 'package:dockmasterclient000/page-1/moder_summary.dart' as moder_summary;
 // import 'package:myapp/page-1/company_chat.dart';
 // import 'package:myapp/page-1/moder_chat.dart';
 // import 'package:myapp/page-1/-qPr.dart';
@@ -30,7 +31,7 @@ import 'package:dockmasterclient000/page-1/moder_personal.dart' as moder_persona
 
 void main() => runApp(MyApp());
 
-Uri rest_uri = Uri.http('127.0.0.1:8080', '/rest');
+Uri rest_uri = Uri.http('172.20.10.4:8080', '/rest');
 
 class MyApp extends StatelessWidget {
 	@override
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
 			'/moder/': (context) => const moder_home.Page(title: 'Home'),
 			'/moder/chat': (context) => const moder_chat.Page(title: 'Chat'),
 			'/moder/personal': (context) => const moder_personal.Page(title: 'Personal'),
+			'/moder/summary': (context) => const moder_summary.Page(title: 'Summary'),
 		},
 	);
 	}
