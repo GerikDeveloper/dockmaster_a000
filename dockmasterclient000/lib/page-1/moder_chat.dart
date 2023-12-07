@@ -457,7 +457,7 @@ class PageState extends State<Page> {
                           maxWidth: 190*fem,
                         ),
                         child: Text(
-                          'Присланные документы',
+                          'Пришедшие документы',
                           textAlign: TextAlign.center,
                           style: SafeGoogleFont (
                             'Vollkorn',
@@ -484,7 +484,8 @@ class PageState extends State<Page> {
                                   width: 204*fem,
                                   height: 41*fem,
                                   child: TextButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                    },
                                     style: TextButton.styleFrom (
                                       padding: EdgeInsets.zero,
                                     ),
@@ -511,7 +512,9 @@ class PageState extends State<Page> {
                                   width: 119*fem,
                                   height: 81*fem,
                                   child: TextButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.pushNamed(context, '/moder/personal');
+                                    },
                                     style: TextButton.styleFrom (
                                       padding: EdgeInsets.zero,
                                     ),

@@ -30,7 +30,7 @@ import 'package:dockmasterclient000/page-1/moder_personal.dart' as moder_persona
 
 void main() => runApp(MyApp());
 
-Uri rest_uri = Uri.http('172.20.10.4:8080', '/rest');
+Uri rest_uri = Uri.http('127.0.0.1:8080', '/rest');
 
 class MyApp extends StatelessWidget {
 	@override

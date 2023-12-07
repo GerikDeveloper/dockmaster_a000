@@ -14,9 +14,8 @@ public class Configurator {
 
     private static int port;
     private static int backlog;
-    private static String email;
-    private static String emailPassword;
-    private static int period;
+    private static String tgToken;
+    private static long period;
     private static String moderName;
     private static String moderPassword;
 
@@ -28,15 +27,11 @@ public class Configurator {
         return port;
     }
 
-    public static String getEmail() {
-        return email;
+    public static String getTgToken() {
+        return tgToken;
     }
 
-    public static String getEmailPassword() {
-        return emailPassword;
-    }
-
-    public static int getPeriod() {
+    public static long getPeriod() {
         return period;
     }
 
@@ -62,15 +57,13 @@ public class Configurator {
             }
             if (properties.containsKey("port") &&
                     properties.containsKey("backlog") &&
-                    properties.containsKey("email") &&
-                    properties.containsKey("email_password") &&
+                    properties.containsKey("tg_token") &&
                     properties.containsKey("period") &&
                     properties.containsKey("moder_name") &&
                     properties.containsKey("moder_password")) {
                 port = Integer.parseInt(properties.getProperty("port"));
                 backlog = Integer.parseInt(properties.getProperty("backlog"));
-                email = properties.getProperty("email");
-                emailPassword = properties.getProperty("email_password");
+                tgToken = properties.getProperty("tg_token");
                 period = Integer.parseInt(properties.getProperty("period"));
                 moderName = properties.getProperty("moder_name");
                 moderPassword = properties.getProperty("moder_password");
@@ -97,17 +90,15 @@ public class Configurator {
             //Default values
             port = 8080;
             backlog = 10;
-            email = "example@mail.com";
-            emailPassword = "qwerty12345678";
-            period = 0;
+            tgToken = "6570058788:AAEb5yL-sm9m1igy_KUEPmB_LWOFg4Cfrbc";
+            period = 1000;
             moderName = "admin";
             moderPassword = "admin";
             //
             properties.put("port", Integer.toString(port));
             properties.put("backlog", Integer.toString(backlog));
-            properties.put("email", email);
-            properties.put("email_password", emailPassword);
-            properties.put("period", Integer.toString(period));
+            properties.put("tg_token", tgToken);
+            properties.put("period", Long.toString(period));
             properties.put("moder_name", moderName);
             properties.put("moder_password", moderPassword);
             try (FileOutputStream fos = new FileOutputStream(configsPath)) {
@@ -116,8 +107,7 @@ public class Configurator {
                 properties = null;
                 port = 0;
                 backlog = 0;
-                email = null;
-                emailPassword = null;
+                tgToken = null;
                 period = 0;
                 moderName = null;
                 moderPassword = null;

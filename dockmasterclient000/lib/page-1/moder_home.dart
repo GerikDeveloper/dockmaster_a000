@@ -183,19 +183,24 @@ class PageState extends State<Page> {
                           ),
                         ),
                       ),
-                      Container(
-                        // 7rt (17:359)
-                        margin: EdgeInsets.fromLTRB(0*fem, 3*fem, 44*fem, 0*fem),
-                        child: Text(
-                          'Главная',
-                          style: SafeGoogleFont (
-                            'Vollkorn',
-                            fontSize: 29*ffem,
-                            fontWeight: FontWeight.w700,
-                            height: 1.3925*ffem/fem,
-                            color: Color(0xff000000),
+                      TextButton(
+                        child: Container(
+                          // 7rt (17:359)
+                          margin: EdgeInsets.fromLTRB(0*fem, 3*fem, 44*fem, 0*fem),
+                          child: Text(
+                            'Главная',
+                            style: SafeGoogleFont (
+                              'Vollkorn',
+                              fontSize: 29*ffem,
+                              fontWeight: FontWeight.w700,
+                              height: 1.3925*ffem/fem,
+                              color: Color(0xff000000),
+                            ),
                           ),
                         ),
+                        onPressed: (){
+                          Navigator.pushNamed(context, '/moder/');
+                        },
                       ),
                       Container(
                         // 2yr (17:360)
@@ -212,7 +217,7 @@ class PageState extends State<Page> {
                               maxWidth: 173*fem,
                             ),
                             child: Text(
-                              'Присланные документы',
+                              'Пришедшие документы',
                               textAlign: TextAlign.center,
                               style: SafeGoogleFont (
                                 'Vollkorn',

@@ -312,20 +312,23 @@ class PageState extends State<Page> {
                           ],
                         ),
                       ),
-                      Container(
-                        // ykY (33:570)
-                        constraints: BoxConstraints (
-                          maxWidth: 111*fem,
-                        ),
-                        child: Text(
-                          'Личный кабинет',
-                          textAlign: TextAlign.center,
-                          style: SafeGoogleFont (
-                            'Vollkorn',
-                            fontSize: 29*ffem,
-                            fontWeight: FontWeight.w700,
-                            height: 1.3925*ffem/fem,
-                            color: Color(0xff000000),
+                      TextButton(
+                        onPressed: (){},
+                        child: Container(
+                          // ykY (33:570)
+                          constraints: BoxConstraints (
+                            maxWidth: 111*fem,
+                          ),
+                          child: Text(
+                            'Личный кабинет',
+                            textAlign: TextAlign.center,
+                            style: SafeGoogleFont (
+                              'Vollkorn',
+                              fontSize: 29*ffem,
+                              fontWeight: FontWeight.w700,
+                              height: 1.3925*ffem/fem,
+                              color: Color(0xff000000),
+                            ),
                           ),
                         ),
                       ),

@@ -236,7 +236,9 @@ class PageState extends State<Page> {
                           margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem,
                               50.13 * fem, 23 * fem),
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/company/', arguments: {'name': name, 'password': password});
+                            },
                             style: TextButton.styleFrom(
                               padding: EdgeInsets.zero,
                             ),
@@ -252,22 +254,25 @@ class PageState extends State<Page> {
                             ),
                           ),
                         ),
-                        Container(
-// JFW (17:890)
-                          margin: EdgeInsets.fromLTRB(0 * fem, 1 * fem,
-                              28.87 * fem, 0 * fem),
-                          constraints: BoxConstraints(
-                            maxWidth: 170 * fem,
-                          ),
-                          child: Text(
-                            'Отправить документы',
-                            textAlign: TextAlign.center,
-                            style: SafeGoogleFont(
-                              'Vollkorn',
-                              fontSize: 29 * ffem,
-                              fontWeight: FontWeight.w700,
-                              height: 1.3925 * ffem / fem,
-                              color: Color(0xff000000),
+                        TextButton(
+                          onPressed: (){},
+                          child: Container(
+  // JFW (17:890)
+                            margin: EdgeInsets.fromLTRB(0 * fem, 1 * fem,
+                                28.87 * fem, 0 * fem),
+                            constraints: BoxConstraints(
+                              maxWidth: 170 * fem,
+                            ),
+                            child: Text(
+                              'Отправить документы',
+                              textAlign: TextAlign.center,
+                              style: SafeGoogleFont(
+                                'Vollkorn',
+                                fontSize: 29 * ffem,
+                                fontWeight: FontWeight.w700,
+                                height: 1.3925 * ffem / fem,
+                                color: Color(0xff000000),
+                              ),
                             ),
                           ),
                         ),
@@ -288,7 +293,9 @@ class PageState extends State<Page> {
                                     width: 204 * fem,
                                     height: 41 * fem,
                                     child: TextButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.pushNamed(context, '/company/chat', arguments: {'name': name, 'password': password});
+                                      },
                                       style: TextButton.styleFrom(
                                         padding: EdgeInsets.zero,
                                       ),
@@ -330,7 +337,9 @@ class PageState extends State<Page> {
                           margin: EdgeInsets.fromLTRB(0 * fem, 0 * fem, 0 * fem,
                               21 * fem),
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/company/personal', arguments: {'name': name, 'password': password});
+                            },
                             style: TextButton.styleFrom(
                               padding: EdgeInsets.zero,
                             ),
@@ -443,7 +452,7 @@ class PageState extends State<Page> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    'Отправить',
+                                    'Отправить документы',
                                     textAlign: TextAlign.center,
                                     style: SafeGoogleFont(
                                       'Vollkorn',

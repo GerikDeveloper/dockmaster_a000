@@ -25,12 +25,11 @@ public class DBExecutor {
                         "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         "name TEXT NOT NULL UNIQUE, " +
                         "password TEXT NOT NULL, " +
-                        "email TEXT NOT NULL UNIQUE, " +
+                        "tgid INTEGER NOT NULL UNIQUE, " +
                         "path TEXT NOT NULL UNIQUE, " +
                         "last_date TEXT NOT NULL, " +
                         "last_noticed TEXT NOT NULL)");
                 LoadingStatement.close();
-                Logger.log(new Note("DB has been loaded"));
                 return true;
             } catch (Exception unkExc) {
                 Logger.log(new Note("Unknown file or sql error"));
@@ -70,20 +69,20 @@ public class DBExecutor {
                     "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "name TEXT NOT NULL UNIQUE, " +
                     "password TEXT NOT NULL, " +
-                    "email TEXT NOT NULL UNIQUE, " +
+                    "tgid INTEGER NOT NULL UNIQUE, " +
                     "path TEXT NOT NULL UNIQUE, " +
                     "last_date TEXT NOT NULL, " +
                     "last_noticed TEXT NOT NULL)");
             CreatingStatement.close();
             Logger.log(new Note("DB has been created"));
             return true;
-        } catch (Exception unkExc) {
+        } catch (Exception unExc) {
             Logger.log(new Note("Unknown file or sqlite error"));
             return false;
         }
     }
 
-    public static boolean createCompany(String name, String password, String email) {
+    public static boolean createCompany(String name, String password, int tgId) {
         Connection dbConnection = null;
         PreparedStatement addingStatement = null;
         Connection companyDB = null;
@@ -112,14 +111,14 @@ public class DBExecutor {
             addingStatement = dbConnection.prepareStatement("INSERT INTO companies (" +
                     "name, " +
                     "password, " +
-                    "email, " +
+                    "tgid, " +
                     "path, " +
                     "last_date," +
                     "last_noticed) " +
                     "VALUES (?, ?, ?, ?, ?, ?)");
             addingStatement.setString(1, name);
             addingStatement.setString(2, password);
-            addingStatement.setString(3, email);
+            addingStatement.setInt(3, tgId);
             addingStatement.setString(4, path);
             addingStatement.setString(5, Server.getDateform().format(new Date()));
             addingStatement.setString(6, Server.getDateform().format(new Date()));
@@ -182,6 +181,36 @@ public class DBExecutor {
             int[] result = null;
             if (statementResult.next()) {
                 result = new int[] {statementResult.getInt(column)};
+            } else {
+                statementResult.close();
+                throw new Exception();
+            }
+            statementResult.close();
+            gettingStatement.close();
+            dbConnection.close();
+            return result;
+        } catch (Exception dbException) {
+            try {
+                if (gettingStatement != null) gettingStatement.close();
+                if (dbConnection != null) dbConnection.close();
+            } catch (Exception immediatelyClosingException) {
+                return null;
+            }
+            return null;
+        }
+    }
+
+    public static long[] getLongParam(int id, String column, String dbPath, String dbName) {
+        Connection dbConnection = null;
+        PreparedStatement gettingStatement = null;
+        try {
+            dbConnection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
+            gettingStatement = dbConnection.prepareStatement("SELECT * FROM " + dbName + " WHERE id = ?");
+            gettingStatement.setInt(1, id);
+            ResultSet statementResult = gettingStatement.executeQuery();
+            long[] result = null;
+            if (statementResult.next()) {
+                result = new long[] {statementResult.getLong(column)};
             } else {
                 statementResult.close();
                 throw new Exception();
@@ -335,6 +364,30 @@ public class DBExecutor {
             dbConnection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
             settingStatement = dbConnection.prepareStatement("UPDATE " + dbName + " SET " + column + " = ? WHERE id = ?");
             settingStatement.setInt(1, data);
+            settingStatement.setInt(2, id);
+            int updated = settingStatement.executeUpdate();
+            if (updated == 0) throw new Exception();
+            settingStatement.close();
+            dbConnection.close();
+        } catch (Exception dbException) {
+            try {
+                if (settingStatement != null) settingStatement.close();
+                if (dbConnection != null) dbConnection.close();
+            } catch (Exception immediatelyClosingException) {
+                return false;
+            }
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean setLongParam(int id, String column, long data, String dbPath, String dbName) {
+        Connection dbConnection = null;
+        PreparedStatement settingStatement = null;
+        try {
+            dbConnection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
+            settingStatement = dbConnection.prepareStatement("UPDATE " + dbName + " SET " + column + " = ? WHERE id = ?");
+            settingStatement.setLong(1, data);
             settingStatement.setInt(2, id);
             int updated = settingStatement.executeUpdate();
             if (updated == 0) throw new Exception();
@@ -572,8 +625,8 @@ public class DBExecutor {
         return getStringParam(id, "password", cmpsDBPath, "companies");
     }
 
-    public static String getCompanyEmail(int id) {
-        return getStringParam(id, "email", cmpsDBPath, "companies");
+    public static String getCompanyTgId(int id) {
+        return getStringParam(id, "tgid", cmpsDBPath, "companies");
     }
 
     public static String getCompanyPath(int id) {
@@ -610,6 +663,14 @@ public class DBExecutor {
         return null;
     }
 
+    public static boolean setCmpTgId(int cmpId, long tdId) {
+        return setLongParam(cmpId, "tgid", tdId, cmpsDBPath, "companies");
+    }
+
+    public static long[] getCmpTgId(int cmpId) {
+        return getLongParam(cmpId, "tgid", cmpsDBPath, "companies");
+    }
+
     public static boolean setCmpNoticeType(int cmpId, int ntcId, String type) {
         String path = getCompanyPath(cmpId);
         if (path != null) {
@@ -617,6 +678,10 @@ public class DBExecutor {
             return setStringParam(ntcId, "type", type, path, "notices");
         }
         return false;
+    }
+
+    public static boolean setCompanyLastNociced(int cmpId, String date) {
+        return setStringParam(cmpId, "last_noticed", date, cmpsDBPath, "companies");
     }
 
     public static String getCmpNoticeDataPath(int cmpId, int ntcId) {

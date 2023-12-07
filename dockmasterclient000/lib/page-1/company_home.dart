@@ -285,7 +285,7 @@ class PageState extends State<Page> {
                         margin: EdgeInsets.fromLTRB(0*fem, 0*fem, 0*fem, 1*fem),
                         child: TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/company/', arguments: {'name': name, 'password': password});
+                            Navigator.pushNamed(context, '/company/personal', arguments: {'name': name, 'password': password});
                           },
                           style: TextButton.styleFrom (
                             padding: EdgeInsets.zero,
