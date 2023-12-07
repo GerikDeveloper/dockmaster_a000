@@ -27,7 +27,8 @@ public class DBExecutor {
                         "password TEXT NOT NULL, " +
                         "email TEXT NOT NULL UNIQUE, " +
                         "path TEXT NOT NULL UNIQUE, " +
-                        "last_date TEXT NOT NULL)");
+                        "last_date TEXT NOT NULL, " +
+                        "last_noticed TEXT NOT NULL)");
                 LoadingStatement.close();
                 Logger.log(new Note("DB has been loaded"));
                 return true;
@@ -71,7 +72,8 @@ public class DBExecutor {
                     "password TEXT NOT NULL, " +
                     "email TEXT NOT NULL UNIQUE, " +
                     "path TEXT NOT NULL UNIQUE, " +
-                    "last_date TEXT NOT NULL)");
+                    "last_date TEXT NOT NULL, " +
+                    "last_noticed TEXT NOT NULL)");
             CreatingStatement.close();
             Logger.log(new Note("DB has been created"));
             return true;
@@ -112,13 +114,15 @@ public class DBExecutor {
                     "password, " +
                     "email, " +
                     "path, " +
-                    "last_date) " +
-                    "VALUES (?, ?, ?, ?, ?)");
+                    "last_date," +
+                    "last_noticed) " +
+                    "VALUES (?, ?, ?, ?, ?, ?)");
             addingStatement.setString(1, name);
             addingStatement.setString(2, password);
             addingStatement.setString(3, email);
             addingStatement.setString(4, path);
             addingStatement.setString(5, Server.getDateform().format(new Date()));
+            addingStatement.setString(6, Server.getDateform().format(new Date()));
             int updated = addingStatement.executeUpdate();
             if (updated == 0) throw new Exception();
             addingStatement.close();
@@ -388,7 +392,6 @@ public class DBExecutor {
             dbConnection.close();
             return result;
         } catch (Exception dbException) {
-            dbException.printStackTrace();
             try {
                 if (countingStatement != null) countingStatement.close();
                 if (gettingStatement != null) gettingStatement.close();
@@ -579,6 +582,10 @@ public class DBExecutor {
 
     public static String getCompanyLastDate(int id) {
         return getStringParam(id, "last_date", cmpsDBPath, "companies");
+    }
+
+    public static String getCompanyLastNoticed(int id) {
+        return getStringParam(id, "last_noticed", cmpsDBPath, "companies");
     }
 
     public static boolean isCmpPasswordCorrect(String name, String password) {

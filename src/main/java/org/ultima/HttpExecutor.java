@@ -123,8 +123,8 @@ public class HttpExecutor {
                     if (TDBExecutor.getTdbase().containsKey(address)) {
                         TData tdata = TDBExecutor.getTdbase().get(address);
                         if (tdata.getType() == TData.AccountMode.MODER) {
-                            if (headers.containsKey("id")) {
-                                int id = Integer.parseInt(headers.getFirst("id"));
+                            if (headers.containsKey("cid")) {
+                                int id = Integer.parseInt(headers.getFirst("cid"));
                                 int[] nids = DBExecutor.getCmpNoticeIds(id);
                                 if (nids != null) {
                                     StringBuilder sb = new StringBuilder();
@@ -312,7 +312,7 @@ public class HttpExecutor {
                                 int cid = Integer.parseInt(headers.getFirst("cid"));
                                 int nid = Integer.parseInt(headers.getFirst("nid"));
                                 String type = headers.getFirst("type");
-                                if (type.equals("accepted_company_doc")) {
+                                if (type.equals("accepted_company_doc") || type.equals("declined_company_doc")) {
                                     //TODO UPD LASTDATE
                                     if (DBExecutor.setCmpNoticeType(cid, nid, type)) {
                                         rsp.setRspCode(Codes.Http.OK);
@@ -417,6 +417,40 @@ public class HttpExecutor {
             return rsp;
         }
 
+        public static Rsp gcn(HttpExchange exchange, String rqMethod, String address, Headers headers) {
+            Rsp rsp = new Rsp(Codes.Http.ERR_CLIENT, new byte[0]);
+            try {
+                if (rqMethod.equals("GET")) {
+                    if (TDBExecutor.getTdbase().containsKey(address)) {
+                        TData tdata = TDBExecutor.getTdbase().get(address);
+                        if (tdata.getType() == TData.AccountMode.MODER) {
+                            if (headers.containsKey("cid")) {
+                                int cid = Integer.parseInt(headers.getFirst("cid"));
+                                String type = DBExecutor.getCompanyName(cid);
+                                if (type != null) {
+                                    rsp.setBodyData(ByteOperations.getStringBytes(type));
+                                    rsp.setRspCode(Codes.Http.OK);
+                                } else {
+                                    rsp.setRspCode(Codes.Http.ERR_CLIENT);
+                                }
+                            } else {
+                                rsp.setRspCode(Codes.Http.ERR_CLIENT);
+                            }
+                        } else {
+                            rsp.setRspCode(Codes.Http.ERR_CLIENT);
+                        }
+                    } else {
+                        rsp.setRspCode(Codes.Http.ERR_CLIENT);
+                    }
+                } else {
+                    rsp.setRspCode(Codes.Http.ERR_CLIENT);
+                }
+            } catch (Exception unExc) {
+                rsp.setRspCode(Codes.Http.ERR_SERVER);
+            }
+            return rsp;
+        }
+
         public static void handleRsp(HttpExchange exchange, Rsp rsp) {
             try (OutputStream body = exchange.getResponseBody()){
                 if (rsp != null) {
@@ -483,6 +517,8 @@ public class HttpExecutor {
                 rsp = FunExecutor.snt(exchange, rqMethod, address, headers);
             } else if (execution.equals("sn")) { //Send notice
                 rsp = FunExecutor.sn(exchange, rqMethod, address, headers);
+            } else if(execution.equals("gcn")) {
+                rsp = FunExecutor.gcn(exchange, rqMethod, address, headers);
             } else {
                 rsp = new Rsp(Codes.Http.ERR_CLIENT, new byte[0]);
             }
