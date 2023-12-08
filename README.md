@@ -1,16 +1,19 @@
 # The DockMaster Alpha_000
 DockMaster for Hakaton Moscow 2023
 
-Via RestAPI
+Запустите jar файл, и, чтобы зайти на сайт введите 127.0.0.1:(port) Порт по умолчанию 8080
 
-Run Jar to start server
+В папке data и в configs.properties лежат аккаунты для тестировки
+Для компании: (имя) Ultima (пароль) SuperPass12345678
+Для модератора: (имя) admin (пароль) admin
 
-You also can rebuild client with flutter build web -d --disable-web-security
+Чтобы протестировать поквартальное оповещение компаний:
+  1. Запустите сервер
+  2. Перейдите в телеграм
+  3. Найдите бот @ultima_dockmaster_bot
+  4. Введите команду /start
+  5. Введите /attach_this_chat (имя компании) (пароль компании)
+  6. Теперь оповещения для компании и бланки отчётностей приходят к вам
+Пример: /attach_this_chat Ultima SuperPass12345678
 
-Edit Server Configs
-
-Period is time between quarters in milliseconds
-
-Edit Name & Pass for Moder Accaunt in Configs
-
-Happy Using
+Просмотрите также и READMY в клиенте, чтобы получить навыки работы
